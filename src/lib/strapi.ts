@@ -481,7 +481,9 @@ export function proxyUrl(url: string | null): string {
   try {
     const parsed = new URL(url);
     if (STRAPI_MEDIA_HOSTS.includes(parsed.hostname)) {
-      return `/api/doc?url=${encodeURIComponent(url)}`;
+      // Clean path: /docs/filename.pdf (proxied by Next.js rewrites)
+      const path = parsed.pathname.startsWith("/") ? parsed.pathname.slice(1) : parsed.pathname;
+      return `/docs/${path}`;
     }
   } catch {}
   return url;

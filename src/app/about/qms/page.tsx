@@ -34,11 +34,12 @@ function isPDF(ext: string): boolean {
 
 async function handleShare(e: React.MouseEvent, item: any) {
   e.stopPropagation();
-  const text = `QMS Document: ${item.title}`;
+  const pageUrl = `${window.location.origin}/about/qms`;
+  const text = `${item.title} — UVTAB Quality Management System`;
   if (navigator.share) {
-    try { await navigator.share({ title: item.title, text, url: item.documentUrl || window.location.href }); } catch {}
+    try { await navigator.share({ title: item.title, text, url: pageUrl }); } catch {}
   } else {
-    await navigator.clipboard.writeText(item.documentUrl || window.location.href);
+    await navigator.clipboard.writeText(pageUrl);
     alert("Link copied to clipboard!");
   }
 }

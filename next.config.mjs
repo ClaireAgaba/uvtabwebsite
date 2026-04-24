@@ -20,6 +20,15 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: "/docs/:path*",
+        destination:
+          "https://nice-books-5133946fb0.media.strapiapp.com/:path*",
+      },
+    ];
+  },
 };
 
 export default nextConfig;
