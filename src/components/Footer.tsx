@@ -48,8 +48,9 @@ export default function Footer() {
                 </div>
               </div>
               <p className="text-sm text-white/70 leading-relaxed">
-                Regulating, coordinating and conducting credible, fair and valid
-                assessments for vocational and technical education in Uganda.
+                Assessment and Certification of competences obtained through
+                Formal and Informal TVET and Development of Training Packages and 
+                Curriculum
               </p>
             </div>
 
