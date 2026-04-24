@@ -399,7 +399,7 @@ export async function getReports(): Promise<any[]> {
       id: item.id,
       title: item.Title || "",
       description: item.Description || "",
-      documentUrl: doc?.url || null,
+      documentUrl: proxyUrl(doc?.url || null),
       fileName: doc?.name || "",
       fileSize: doc?.size || 0,
       fileExt: doc?.ext || "",
@@ -416,7 +416,7 @@ export async function getDownloads(): Promise<any[]> {
       id: item.id,
       title: item.Title || "",
       description: item.Description || "",
-      documentUrl: doc?.url || null,
+      documentUrl: proxyUrl(doc?.url || null),
       fileName: doc?.name || "",
       fileSize: doc?.size || 0,
       fileExt: doc?.ext || "",
@@ -461,7 +461,7 @@ export async function getQMS(): Promise<any[]> {
     return {
       id: item.id,
       title: item.Title || "",
-      documentUrl: doc?.url || null,
+      documentUrl: proxyUrl(doc?.url || null),
       fileName: doc?.name || "",
       fileSize: doc?.size || 0,
       fileExt: doc?.ext || "",
@@ -470,16 +470,34 @@ export async function getQMS(): Promise<any[]> {
   });
 }
 
+// ── Proxy Strapi media URLs through our domain ──
+const STRAPI_MEDIA_HOSTS = [
+  "nice-books-5133946fb0.media.strapiapp.com",
+  "nice-books-5133946fb0.strapiapp.com",
+];
+
+export function proxyUrl(url: string | null): string {
+  if (!url) return "";
+  try {
+    const parsed = new URL(url);
+    if (STRAPI_MEDIA_HOSTS.includes(parsed.hostname)) {
+      return `/api/doc?url=${encodeURIComponent(url)}`;
+    }
+  } catch {}
+  return url;
+}
+
 // ── Media URL helper (handles both nested & flat) ──
 export function getMediaUrl(media: any): string {
   if (!media) return "";
+  let url = "";
   // Array of media
   if (Array.isArray(media) && media.length > 0) {
-    return media[0].url || "";
+    url = media[0].url || "";
   }
   // Direct url
-  if (media.url) return media.url;
+  else if (media.url) url = media.url;
   // Nested data.attributes
-  if (media.data?.attributes?.url) return media.data.attributes.url;
-  return "";
+  else if (media.data?.attributes?.url) url = media.data.attributes.url;
+  return proxyUrl(url);
 }
