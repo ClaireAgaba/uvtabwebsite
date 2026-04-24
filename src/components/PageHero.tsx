@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 
 interface Breadcrumb {
@@ -16,21 +17,18 @@ interface PageHeroProps {
 
 export default function PageHero({ title, subtitle, breadcrumbs }: PageHeroProps) {
   return (
-    <section className="relative gradient-hero overflow-hidden pt-28 pb-20 md:pt-36 md:pb-28">
-      {/* Decorative elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-20 -right-20 w-72 h-72 border border-white/5 rounded-full" />
-        <div className="absolute -bottom-16 -left-16 w-56 h-56 border border-white/5 rounded-full" />
-      </div>
-
-      <div
-        className="absolute inset-0 opacity-[0.02]"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
-        }}
+    <section className="relative overflow-hidden pt-28 pb-20 md:pt-36 md:pb-28">
+      {/* Background image */}
+      <Image
+        src="/uvtabimage.png"
+        alt="UVTAB Building"
+        fill
+        className="object-cover"
+        priority
+        quality={85}
       />
+      {/* Dark overlay for text readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-uvtab-blue/85 via-uvtab-blue/80 to-uvtab-blue/90" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.h1
