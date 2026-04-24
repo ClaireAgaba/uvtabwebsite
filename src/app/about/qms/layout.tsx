@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://uvtab.go.ug"),
   title: "Quality Management System | UVTAB",
   description:
     "Access UVTAB's Quality Management System documents including policies, procedures, manuals, and quality-related documentation.",
