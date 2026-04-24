@@ -198,38 +198,48 @@ export default function QMSPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/80 flex flex-col"
+            className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-6"
             onClick={() => setPreviewDoc(null)}
           >
-            <div className="bg-white/95 backdrop-blur px-5 py-3 flex items-center justify-between shadow-sm" onClick={(e) => e.stopPropagation()}>
-              <div className="flex items-center gap-3 min-w-0">
-                <File size={18} className="text-red-500 shrink-0" />
-                <span className="font-bold text-gray-900 truncate">{previewDoc.title}</span>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[85vh] flex flex-col overflow-hidden"
+            >
+              {/* Header */}
+              <div className="px-5 py-3 border-b border-gray-100 flex items-center justify-between shrink-0">
+                <div className="flex items-center gap-3 min-w-0">
+                  <File size={18} className="text-red-500 shrink-0" />
+                  <span className="font-bold text-gray-900 truncate">{previewDoc.title}</span>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <a
+                    href={previewDoc.documentUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="h-8 px-4 bg-uvtab-blue text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:bg-uvtab-blue-dark transition-colors"
+                  >
+                    <Download size={13} /> Download
+                  </a>
+                  <button
+                    onClick={() => setPreviewDoc(null)}
+                    className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
               </div>
-              <div className="flex items-center gap-2 shrink-0">
-                <a
-                  href={previewDoc.documentUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="h-8 px-4 bg-uvtab-blue text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:bg-uvtab-blue-dark transition-colors"
-                >
-                  <Download size={13} /> Download
-                </a>
-                <button
-                  onClick={() => setPreviewDoc(null)}
-                  className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors"
-                >
-                  <X size={16} />
-                </button>
+              {/* PDF iframe */}
+              <div className="flex-1 min-h-0">
+                <iframe
+                  src={previewDoc.documentUrl}
+                  className="w-full h-full"
+                  title={`Preview: ${previewDoc.title}`}
+                />
               </div>
-            </div>
-            <div className="flex-1 p-4" onClick={(e) => e.stopPropagation()}>
-              <iframe
-                src={previewDoc.documentUrl}
-                className="w-full h-full rounded-xl bg-white"
-                title={`Preview: ${previewDoc.title}`}
-              />
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
