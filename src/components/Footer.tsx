@@ -44,7 +44,7 @@ export default function Footer() {
                 />
                 <div>
                   <p className="font-bold text-sm">UVTAB</p>
-                  <p className="text-xs text-white/70">Assessment Board</p>
+                  <p className="text-xs text-white/70">Uganda Vocational and Technical Assessment Board</p>
                 </div>
               </div>
               <p className="text-sm text-white/70 leading-relaxed">

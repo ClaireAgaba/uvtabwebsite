@@ -453,6 +453,23 @@ export async function subscribeNewsletter(email: string): Promise<boolean> {
   }
 }
 
+// ── QMS (Quality Management System) ──
+export async function getQMS(): Promise<any[]> {
+  const items = await fetchStrapi<any>("qmss", { sort: "createdAt:desc" });
+  return items.map((item: any) => {
+    const doc = Array.isArray(item.Doc) && item.Doc.length > 0 ? item.Doc[0] : (item.Doc && !Array.isArray(item.Doc) ? item.Doc : null);
+    return {
+      id: item.id,
+      title: item.Title || "",
+      documentUrl: doc?.url || null,
+      fileName: doc?.name || "",
+      fileSize: doc?.size || 0,
+      fileExt: doc?.ext || "",
+      publishedAt: item.publishedAt || item.createdAt,
+    };
+  });
+}
+
 // ── Media URL helper (handles both nested & flat) ──
 export function getMediaUrl(media: any): string {
   if (!media) return "";

@@ -23,6 +23,7 @@ const navItems: NavItem[] = [
       { label: "Top Management", href: "/about/top-management" },
       { label: "Board Functions", href: "/about/board-functions" },
       { label: "Legal Framework", href: "/about/legal-framework" },
+      { label: "QMS", href: "/about/qms" },
     ],
   },
   {
@@ -94,7 +95,7 @@ export default function Navbar() {
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 shrink-0">
               <Image
-                src="/uvtab-logo.png"
+                src="/uvtablogo.png"
                 alt="UVTAB Logo"
                 width={50}
                 height={50}
