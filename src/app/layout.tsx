@@ -20,6 +20,10 @@ export const metadata: Metadata = {
     "education",
     "TVET",
   ],
+  icons: {
+    icon: "/uvtablogo.png",
+    apple: "/uvtablogo.png",
+  },
   openGraph: {
     type: "website",
     locale: "en_UG",
