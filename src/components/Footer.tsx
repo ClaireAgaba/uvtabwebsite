@@ -48,8 +48,8 @@ export default function Footer() {
                 </div>
               </div>
               <p className="text-sm text-white/70 leading-relaxed">
-                Assessment and Certification of competences obtained through
-                Formal and Informal TVET and Development of Training Packages and 
+                Assessment & Certification of competences obtained through
+                Formal & Informal TVET and Development of Training Packages & 
                 Curriculum
               </p>
             </div>
