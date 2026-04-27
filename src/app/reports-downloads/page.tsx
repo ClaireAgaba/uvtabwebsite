@@ -58,9 +58,13 @@ export default function ReportsDownloadsPage() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    Promise.all([getReports(), getDownloads(), getSpeeches(), getBidsTenders()])
-      .then(([r, d, s, b]) => { setReports(r); setDownloads(d); setSpeeches(s); setBids(b); })
-      .catch(() => {})
+    Promise.allSettled([getReports(), getDownloads(), getSpeeches(), getBidsTenders()])
+      .then(([r, d, s, b]) => {
+        if (r.status === "fulfilled") setReports(r.value);
+        if (d.status === "fulfilled") setDownloads(d.value);
+        if (s.status === "fulfilled") setSpeeches(s.value);
+        if (b.status === "fulfilled") setBids(b.value);
+      })
       .finally(() => setLoading(false));
   }, []);
 
