@@ -32,7 +32,7 @@ function getFileColor(ext: string): string {
 
 async function handleShare(item: any) {
   const pageUrl = `${window.location.origin}/reports-downloads`;
-  const text = `${item.title} — UVTAB Resources`;
+  const text = `${item.title} — UVTAB Reports & Policies`;
   if (navigator.share) {
     try { await navigator.share({ title: item.title, text, url: pageUrl }); } catch {}
   } else {
@@ -92,9 +92,9 @@ export default function ReportsDownloadsPage() {
   return (
     <>
       <PageHero
-        title="Resources"
-        subtitle="Access UVTAB reports, downloads, speeches, bids and tenders"
-        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Resources" }]}
+        title="Reports & Policies"
+        subtitle="Access UVTAB reports, policies, speeches, bids and tenders"
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Reports & Policies" }]}
       />
 
       <section className="section-padding">
@@ -106,7 +106,7 @@ export default function ReportsDownloadsPage() {
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search resources..."
+              placeholder="Search reports and policies..."
               className="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-uvtab-blue/20 focus:border-uvtab-blue transition-colors shadow-sm"
             />
           </div>
