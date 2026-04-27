@@ -10,8 +10,8 @@ export default function Home() {
     <>
       <HeroSection />
       <StatsSection />
-      <MandateServices />
       <LeadershipStatements />
+      <MandateServices />
       <LatestNews />
       <StakeholdersSection />
     </>

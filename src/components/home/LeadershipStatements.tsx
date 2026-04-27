@@ -73,8 +73,8 @@ function LeaderCard({ leader, index }: { leader: typeof leaders[0]; index: numbe
         {/* Statement */}
         <div className="relative z-10">
           <p className="text-gray-600 leading-relaxed text-[15px] italic">
-            &ldquo;{preview}
-            {!hasMore || expanded ? "&rdquo;" : "...&rdquo;"}
+            “{preview}
+            {!hasMore || expanded ? "”" : "...”"}
           </p>
 
           <AnimatePresence>
@@ -88,7 +88,7 @@ function LeaderCard({ leader, index }: { leader: typeof leaders[0]; index: numbe
               >
                 {paragraphs.slice(1).map((p, pi) => (
                   <p key={pi} className="text-gray-600 leading-relaxed text-[15px] italic mt-4">
-                    {p}
+                    {p}{pi === paragraphs.length - 2 && "”"}
                   </p>
                 ))}
               </motion.div>
