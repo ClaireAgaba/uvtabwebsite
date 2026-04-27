@@ -47,13 +47,14 @@ function LeaderCard({ leader, index }: { leader: typeof leaders[0]; index: numbe
 
         {/* Profile */}
         <div className="flex items-center gap-5 mb-6">
-          <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-3 border-uvtab-gold/30 shadow-lg shrink-0 group-hover:border-uvtab-gold transition-colors duration-300">
+          <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-uvtab-gold/30 shadow-lg shrink-0 group-hover:border-uvtab-gold transition-colors duration-300 bg-gray-100">
             <Image
               src={leader.image}
               alt={leader.name}
-              fill
-              className="object-cover object-top"
-              sizes="96px"
+              width={220}
+              height={220}
+              className="w-full h-full object-cover object-top"
+              unoptimized
             />
           </div>
           <div>
