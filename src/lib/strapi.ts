@@ -233,9 +233,9 @@ export async function getLegalDocuments(): Promise<LegalDocument[]> {
       id: item.id,
       title: raw.Title || raw.title || "",
       description: raw.Description || raw.description || [],
-      documentUrl: docUrl,
+      documentUrl: proxyUrl(docUrl),
       documentName: docName,
-      coverImageUrl: coverUrl,
+      coverImageUrl: proxyUrl(coverUrl),
       category: raw.Category || raw.category || "",
       publicationDate: raw.PublicationDate || raw.publicationDate || "",
     };
