@@ -8,7 +8,7 @@ const stats = [
   { icon: GraduationCap, value: 50000, suffix: "+", label: "Candidates Assessed Annually" },
   { icon: Building, value: 400, suffix: "+", label: "Accredited Centers" },
   { icon: BookCheck, value: 200, suffix: "+", label: "Approved Programs" },
-  { icon: Users, value: 100, suffix: "+", label: "Years of Excellence" },
+  { icon: Users, value: 1, suffix: "+", label: "Years of Excellence" },
 ];
 
 function AnimatedCounter({ target, suffix }: { target: number; suffix: string }) {

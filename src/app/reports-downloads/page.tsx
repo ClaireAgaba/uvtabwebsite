@@ -2,9 +2,11 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
-import { FileText, Download, FolderOpen, Search, Share2, Calendar, HardDrive, File, BookOpen } from "lucide-react";
+import { FileText, Download, FolderOpen, Search, Share2, Calendar, HardDrive, File, BookOpen, Mic, Gavel } from "lucide-react";
 import PageHero from "@/components/PageHero";
-import { getReports, getDownloads } from "@/lib/strapi";
+import { getReports, getDownloads, getSpeeches, getBidsTenders } from "@/lib/strapi";
+
+type TabKey = "reports" | "downloads" | "speeches" | "bids";
 
 function formatFileSize(kb: number): string {
   if (!kb) return "";
@@ -29,30 +31,41 @@ function getFileColor(ext: string): string {
 }
 
 async function handleShare(item: any) {
-  const text = `${item.title}${item.description ? " - " + item.description : ""}`;
+  const pageUrl = `${window.location.origin}/reports-downloads`;
+  const text = `${item.title} — UVTAB Resources`;
   if (navigator.share) {
-    try { await navigator.share({ title: item.title, text, url: item.documentUrl || window.location.href }); } catch {}
+    try { await navigator.share({ title: item.title, text, url: pageUrl }); } catch {}
   } else {
-    await navigator.clipboard.writeText(item.documentUrl || window.location.href);
+    await navigator.clipboard.writeText(pageUrl);
     alert("Link copied to clipboard!");
   }
 }
 
+const tabLabels: Record<TabKey, string> = {
+  reports: "report",
+  downloads: "download",
+  speeches: "speech",
+  bids: "bid/tender",
+};
+
 export default function ReportsDownloadsPage() {
   const [reports, setReports] = useState<any[]>([]);
   const [downloads, setDownloads] = useState<any[]>([]);
+  const [speeches, setSpeeches] = useState<any[]>([]);
+  const [bids, setBids] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [tab, setTab] = useState<"reports" | "downloads">("reports");
+  const [tab, setTab] = useState<TabKey>("reports");
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    Promise.all([getReports(), getDownloads()])
-      .then(([r, d]) => { setReports(r); setDownloads(d); })
+    Promise.all([getReports(), getDownloads(), getSpeeches(), getBidsTenders()])
+      .then(([r, d, s, b]) => { setReports(r); setDownloads(d); setSpeeches(s); setBids(b); })
       .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
 
-  const items = tab === "reports" ? reports : downloads;
+  const dataMap: Record<TabKey, any[]> = { reports, downloads, speeches, bids };
+  const items = dataMap[tab];
 
   const filtered = useMemo(() => {
     if (!search) return items;
@@ -65,55 +78,55 @@ export default function ReportsDownloadsPage() {
     );
   }, [items, search]);
 
+  const tabs: { key: TabKey; label: string; icon: React.ReactNode; count: number }[] = [
+    { key: "reports", label: "Reports", icon: <BookOpen size={15} />, count: reports.length },
+    { key: "downloads", label: "Downloads", icon: <FolderOpen size={15} />, count: downloads.length },
+    { key: "speeches", label: "Speeches", icon: <Mic size={15} />, count: speeches.length },
+    { key: "bids", label: "Bids & Tenders", icon: <Gavel size={15} />, count: bids.length },
+  ];
+
   return (
     <>
       <PageHero
-        title="Reports & Downloads"
-        subtitle="Access UVTAB reports, publications, and downloadable resources"
-        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Reports & Downloads" }]}
+        title="Resources"
+        subtitle="Access UVTAB reports, downloads, speeches, bids and tenders"
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Resources" }]}
       />
 
       <section className="section-padding">
         <div className="max-w-5xl mx-auto">
-          {/* Search + Tabs */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-8">
-            <div className="relative flex-1">
-              <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-              <input
-                type="text"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search reports and downloads..."
-                className="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-uvtab-blue/20 focus:border-uvtab-blue transition-colors shadow-sm"
-              />
-            </div>
-            <div className="flex gap-2 shrink-0">
+          {/* Search */}
+          <div className="relative mb-6">
+            <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search resources..."
+              className="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-uvtab-blue/20 focus:border-uvtab-blue transition-colors shadow-sm"
+            />
+          </div>
+
+          {/* Tabs */}
+          <div className="flex flex-wrap gap-2 mb-8">
+            {tabs.map((t) => (
               <button
-                onClick={() => setTab("reports")}
-                className={`flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold transition-all ${
-                  tab === "reports"
+                key={t.key}
+                onClick={() => setTab(t.key)}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${
+                  tab === t.key
                     ? "bg-uvtab-blue text-white shadow-sm"
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }`}
               >
-                <BookOpen size={16} /> Reports ({reports.length})
+                {t.icon} {t.label} ({t.count})
               </button>
-              <button
-                onClick={() => setTab("downloads")}
-                className={`flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold transition-all ${
-                  tab === "downloads"
-                    ? "bg-uvtab-blue text-white shadow-sm"
-                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                }`}
-              >
-                <FolderOpen size={16} /> Downloads ({downloads.length})
-              </button>
-            </div>
+            ))}
           </div>
 
           {/* Results count */}
           <p className="text-sm text-gray-400 mb-5">
-            {filtered.length} {tab === "reports" ? "report" : "download"}{filtered.length !== 1 ? "s" : ""} found
+            {filtered.length} {tabLabels[tab]}{filtered.length !== 1 ? (tab === "bids" ? "s" : "es".startsWith(tabLabels[tab].slice(-1)) ? "s" : "s") : ""} found
           </p>
 
           {loading ? (

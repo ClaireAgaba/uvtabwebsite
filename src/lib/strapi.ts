@@ -425,6 +425,40 @@ export async function getDownloads(): Promise<any[]> {
   });
 }
 
+// ── Speeches ──
+export async function getSpeeches(): Promise<any[]> {
+  const items = await fetchStrapi<any>("speeches", { sort: "createdAt:desc" });
+  return items.map((item: any) => {
+    const doc = Array.isArray(item.Doc) && item.Doc.length > 0 ? item.Doc[0] : (item.Doc && !Array.isArray(item.Doc) ? item.Doc : null);
+    return {
+      id: item.id,
+      title: item.Title || "",
+      documentUrl: proxyUrl(doc?.url || null),
+      fileName: doc?.name || "",
+      fileSize: doc?.size || 0,
+      fileExt: doc?.ext || "",
+      publishedAt: item.publishedAt || item.createdAt,
+    };
+  });
+}
+
+// ── Bids & Tenders ──
+export async function getBidsTenders(): Promise<any[]> {
+  const items = await fetchStrapi<any>("bidtenders", { sort: "createdAt:desc" });
+  return items.map((item: any) => {
+    const doc = Array.isArray(item.Doc) && item.Doc.length > 0 ? item.Doc[0] : (item.Doc && !Array.isArray(item.Doc) ? item.Doc : null);
+    return {
+      id: item.id,
+      title: item.Title || "",
+      documentUrl: proxyUrl(doc?.url || null),
+      fileName: doc?.name || "",
+      fileSize: doc?.size || 0,
+      fileExt: doc?.ext || "",
+      publishedAt: item.publishedAt || item.createdAt,
+    };
+  });
+}
+
 // ── Innovation ──
 export async function getInnovations(): Promise<any[]> {
   const items = await fetchStrapi<any>("innovations", { sort: "createdAt:desc" });

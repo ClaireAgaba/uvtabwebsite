@@ -64,7 +64,7 @@ const navItems: NavItem[] = [
     ],
   },
   { label: "Career", href: "/career" },
-  { label: "Reports & Downloads", href: "/reports-downloads" },
+  { label: "Resources", href: "/reports-downloads" },
 ];
 
 export default function Navbar() {

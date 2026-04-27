@@ -39,10 +39,9 @@ export default function MandateServices() {
               <h3 className="text-2xl font-bold text-gray-900">Our Mandate</h3>
             </div>
             <p className="text-gray-600 leading-relaxed mb-6">
-              To regulate, coordinate, and conduct assessments for Business,
-              Technical, Vocational Education and Training (BTVET) in Uganda,
-              ensuring quality standards and credible certification processes
-              that meet industry requirements and international benchmarks.
+              UVTAB is responsible for the <b>Assessment</b> and <b>Certification</b> of Competences
+              obtained through <b>Formal</b> and <b>Informal</b> Technical & Vocational Education Training.
+              (The Technical & Vocational Education and Training Act, No.3 of 2025)
             </p>
             <Link
               href="/about"
