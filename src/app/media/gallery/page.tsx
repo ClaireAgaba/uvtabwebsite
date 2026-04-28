@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import PageHero from "@/components/PageHero";
@@ -18,9 +18,17 @@ export default function GalleryPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  const allImages = albums.flatMap((a) =>
-    (Array.isArray(a.Media) ? a.Media : []).map((m: any) => ({ ...m, albumTitle: a.Title }))
-  );
+  const allImages = useMemo(() => {
+    const images = albums.flatMap((a) =>
+      (Array.isArray(a.Media) ? a.Media : []).map((m: any) => ({ ...m, albumTitle: a.Title }))
+    );
+
+    return images.sort((a: any, b: any) => {
+      const aTime = new Date(a.createdAt || a.updatedAt || 0).getTime();
+      const bTime = new Date(b.createdAt || b.updatedAt || 0).getTime();
+      return bTime - aTime;
+    });
+  }, [albums]);
 
   return (
     <>

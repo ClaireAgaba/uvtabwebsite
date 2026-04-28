@@ -68,7 +68,7 @@ export interface HeroSlide {
 }
 
 export async function getHeroSlides(): Promise<HeroSlide[]> {
-  const items = await fetchStrapi<any>("updates-heroes");
+  const items = await fetchStrapi<any>("updates-heroes", { sort: "createdAt:desc" });
   return items
     .map((item: any) => ({
       id: item.id,
@@ -280,7 +280,7 @@ export interface GalleryAlbum {
 }
 
 export async function getGallery(): Promise<GalleryAlbum[]> {
-  const items = await fetchStrapi<any>("galleries");
+  const items = await fetchStrapi<any>("galleries", { sort: "createdAt:desc" });
   return items.map((item: any) => ({ id: item.id, ...getStrapiAttributes(item) }));
 }
 
@@ -298,13 +298,13 @@ export async function getEvents(): Promise<any[]> {
 
 // ── Programs ──
 export async function getPrograms(): Promise<any[]> {
-  const items = await fetchStrapi<any>("programs");
+  const items = await fetchStrapi<any>("programs", { sort: "createdAt:desc" });
   return items.map((item: any) => ({ id: item.id, ...getStrapiAttributes(item) }));
 }
 
 // ── Timetables ──
 export async function getTimetables(): Promise<any[]> {
-  const items = await fetchStrapi<any>("timetables");
+  const items = await fetchStrapi<any>("timetables", { sort: "createdAt:desc" });
   return items
     .map((item: any) => {
       const attrs = item.attributes || item;
@@ -316,6 +316,8 @@ export async function getTimetables(): Promise<any[]> {
         Active: attrs.Active !== false,
         Document: attrs.Document || [],
         Description: attrs.Description || [],
+        createdAt: attrs.createdAt || item.createdAt,
+        publishedAt: attrs.publishedAt || item.publishedAt,
       };
     })
     .filter((t: any) => t.Active);
@@ -323,7 +325,7 @@ export async function getTimetables(): Promise<any[]> {
 
 // ── Summary Sheets ──
 export async function getSummarySheets(): Promise<any[]> {
-  const items = await fetchStrapi<any>("summary-sheets");
+  const items = await fetchStrapi<any>("summary-sheets", { sort: "createdAt:desc" });
   return items.map((item: any) => {
     const attrs = item.attributes || item;
     return {
@@ -334,13 +336,15 @@ export async function getSummarySheets(): Promise<any[]> {
       Active: attrs.Active !== false,
       Description: attrs.Description || [],
       Media: attrs.Media || [],
+      createdAt: attrs.createdAt || item.createdAt,
+      publishedAt: attrs.publishedAt || item.publishedAt,
     };
   });
 }
 
 // ── Circulars ──
 export async function getCirculars(): Promise<any[]> {
-  const items = await fetchStrapi<any>("circulars");
+  const items = await fetchStrapi<any>("circulars", { sort: "createdAt:desc" });
   return items
     .map((item: any) => {
       const attrs = item.attributes || item;
@@ -351,6 +355,8 @@ export async function getCirculars(): Promise<any[]> {
         Active: attrs.Active !== false,
         Document: attrs.Document || null,
         Description: attrs.Description || [],
+        createdAt: attrs.createdAt || item.createdAt,
+        publishedAt: attrs.publishedAt || item.publishedAt,
       };
     })
     .filter((c: any) => c.Active);
@@ -358,7 +364,7 @@ export async function getCirculars(): Promise<any[]> {
 
 // ── Curriculum ──
 export async function getCurriculum(): Promise<any[]> {
-  const items = await fetchStrapi<any>("curriculums");
+  const items = await fetchStrapi<any>("curriculums", { sort: "createdAt:desc" });
   return items.map((item: any) => ({ id: item.id, ...getStrapiAttributes(item) }));
 }
 
