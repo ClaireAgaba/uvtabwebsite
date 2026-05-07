@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const ALLOWED_HOSTS = [
-  "nice-books-5133946fb0.media.strapiapp.com",
-  "nice-books-5133946fb0.strapiapp.com",
+  "cms.uvtab.go.ug",
 ];
 
 export async function GET(request: NextRequest) {

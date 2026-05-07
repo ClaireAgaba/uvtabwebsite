@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://nice-books-5133946fb0.strapiapp.com/api";
+const API_URL = "https://cms.uvtab.go.ug/api";
 
 const api = axios.create({
   baseURL: API_URL,
@@ -30,7 +30,7 @@ export function getStrapiMediaUrl(media: any): string {
   if (!media?.data?.attributes?.url) return "";
   const url = media.data.attributes.url;
   if (url.startsWith("http")) return url;
-  return `https://nice-books-5133946fb0.strapiapp.com${url}`;
+  return `https://cms.uvtab.go.ug${url}`;
 }
 
 // Helper to extract attributes
@@ -512,8 +512,7 @@ export async function getQMS(): Promise<any[]> {
 
 // ── Proxy Strapi media URLs through our domain ──
 const STRAPI_MEDIA_HOSTS = [
-  "nice-books-5133946fb0.media.strapiapp.com",
-  "nice-books-5133946fb0.strapiapp.com",
+  "cms.uvtab.go.ug",
 ];
 
 export function proxyUrl(url: string | null): string {

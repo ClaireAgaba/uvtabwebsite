@@ -9,7 +9,7 @@ import PageHero from "@/components/PageHero";
 import { getMediaUrl, extractText } from "@/lib/strapi";
 import axios from "axios";
 
-const API_URL = "https://nice-books-5133946fb0.strapiapp.com/api";
+const API_URL = "https://cms.uvtab.go.ug/api";
 
 export default function InnovationDetailPage() {
   const params = useParams();

@@ -4,11 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "nice-books-5133946fb0.strapiapp.com",
-      },
-      {
-        protocol: "https",
-        hostname: "**.media.strapiapp.com",
+        hostname: "cms.uvtab.go.ug",
       },
       {
         protocol: "https",
@@ -25,7 +21,7 @@ const nextConfig = {
       {
         source: "/docs/:path*",
         destination:
-          "https://nice-books-5133946fb0.media.strapiapp.com/:path*",
+          "https://cms.uvtab.go.ug/:path*",
       },
     ];
   },

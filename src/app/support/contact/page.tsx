@@ -6,7 +6,7 @@ import { MapPin, Phone, Mail, Clock, Send, CheckCircle, Building2 } from "lucide
 import PageHero from "@/components/PageHero";
 import axios from "axios";
 
-const STRAPI_URL = "https://nice-books-5133946fb0.strapiapp.com/api";
+const STRAPI_URL = "https://cms.uvtab.go.ug/api";
 
 export default function ContactPage() {
   const [form, setForm] = useState({ Name: "", Email: "", Subject: "", Message: "" });
