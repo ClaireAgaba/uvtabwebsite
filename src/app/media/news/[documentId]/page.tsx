@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Calendar, ArrowLeft, Share2, Check } from "lucide-react";
 import PageHero from "@/components/PageHero";
-import { getNewsById, getMediaUrl, extractText } from "@/lib/strapi";
+import { getNewsById, getMediaUrl, extractText, proxyUrl } from "@/lib/strapi";
 
 export default function NewsDetailPage() {
   const params = useParams();
@@ -123,7 +123,7 @@ export default function NewsDetailPage() {
                 article.Media.some((m: any) => m.mime?.startsWith("video/")) && (
                   <div className="mt-8">
                     {article.Media.filter((m: any) => m.mime?.startsWith("video/")).map((vid: any) => (
-                      <video key={vid.id} src={vid.url} controls className="w-full rounded-xl" />
+                      <video key={vid.id} src={proxyUrl(vid.url)} controls className="w-full rounded-xl" />
                     ))}
                   </div>
                 )}

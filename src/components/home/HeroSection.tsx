@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { getHeroSlides, type HeroSlide } from "@/lib/strapi";
+import { getHeroSlides, proxyUrl, type HeroSlide } from "@/lib/strapi";
 
 const SLIDE_DURATION = 7000; // 7 seconds per slide
 
@@ -32,7 +32,7 @@ export default function HeroSection() {
       if (items.length > 0) {
         const mapped = items.map((s) => {
           const media = Array.isArray(s.Media) ? s.Media : [];
-          const imageUrl = media.length > 0 ? (media[0].url || "") : "";
+          const imageUrl = media.length > 0 ? proxyUrl(media[0].url || "") : "";
           const desc =
             typeof s.Description === "string"
               ? s.Description

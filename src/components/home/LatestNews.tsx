@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Calendar, ArrowRight, Newspaper, Twitter, Facebook, Youtube, Linkedin } from "lucide-react";
 import Link from "next/link";
-import { getNews, NewsItem } from "@/lib/strapi";
+import { getNews, NewsItem, proxyUrl } from "@/lib/strapi";
 
 const SOCIAL_TABS = [
   { id: "news", label: "UVTAB News", icon: Newspaper },
@@ -123,13 +123,13 @@ function getNewsImage(item: any): string {
       img.formats?.small?.url ||
       img.formats?.thumbnail?.url ||
       img.url;
-    if (thumb) return thumb;
+    if (thumb) return proxyUrl(thumb);
   }
   // Try Image field
   const image = item.Image || item.image;
-  if (image?.url) return image.url;
-  if (image?.data?.attributes?.url) return image.data.attributes.url;
-  if (image?.formats?.medium?.url) return image.formats.medium.url;
+  if (image?.url) return proxyUrl(image.url);
+  if (image?.data?.attributes?.url) return proxyUrl(image.data.attributes.url);
+  if (image?.formats?.medium?.url) return proxyUrl(image.formats.medium.url);
   return "";
 }
 

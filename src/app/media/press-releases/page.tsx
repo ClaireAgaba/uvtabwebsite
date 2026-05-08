@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FileText, Calendar, Download, ZoomIn, Share2 } from "lucide-react";
 import PageHero from "@/components/PageHero";
-import { getPressReleases, extractText, getMediaUrl } from "@/lib/strapi";
+import { getPressReleases, extractText, getMediaUrl, proxyUrl } from "@/lib/strapi";
 
 function getThumbUrl(pr: any): string {
   const img = pr.ThumbnailImage || pr.thumbnailImage;
   if (!img) return "";
-  return img.formats?.medium?.url || img.formats?.small?.url || img.url || "";
+  return proxyUrl(img.formats?.medium?.url || img.formats?.small?.url || img.url || "");
 }
 
 export default function PressReleasesPage() {

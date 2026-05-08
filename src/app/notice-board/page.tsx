@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Bell, Calendar, Download, FileText, ZoomIn } from "lucide-react";
 import PageHero from "@/components/PageHero";
-import { getNotices, extractText, getMediaUrl } from "@/lib/strapi";
+import { getNotices, extractText, getMediaUrl, proxyUrl } from "@/lib/strapi";
 
 function getThumbUrl(notice: any): string {
   const img = notice.ThumbnailImage || notice.thumbnailImage;
   if (!img) return "";
-  return img.formats?.medium?.url || img.formats?.small?.url || img.url || "";
+  return proxyUrl(img.formats?.medium?.url || img.formats?.small?.url || img.url || "");
 }
 
 export default function NoticeBoardPage() {

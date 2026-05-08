@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { User } from "lucide-react";
 import PageHero from "@/components/PageHero";
-import { getBoardMembers, getMediaUrl, type BoardMember } from "@/lib/strapi";
+import { getBoardMembers, getMediaUrl, proxyUrl, type BoardMember } from "@/lib/strapi";
 
 export default function BoardMembersPage() {
   const [members, setMembers] = useState<BoardMember[]>([]);
@@ -55,7 +55,7 @@ export default function BoardMembersPage() {
                   <div className="inline-block">
                     <div className="w-36 h-36 mx-auto mb-4 rounded-full overflow-hidden border-4 border-uvtab-gold bg-uvtab-blue/5">
                       {chair.ProfileImage?.url ? (
-                        <img src={chair.ProfileImage.url} alt={chair.Name} className="w-full h-full object-cover" />
+                        <img src={proxyUrl(chair.ProfileImage.url)} alt={chair.Name} className="w-full h-full object-cover" />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center bg-uvtab-blue/5">
                           <User className="w-16 h-16 text-uvtab-blue/30" />
@@ -82,7 +82,7 @@ export default function BoardMembersPage() {
                   >
                     <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden bg-uvtab-blue/5 border-2 border-gray-100">
                       {member.ProfileImage?.url ? (
-                        <img src={member.ProfileImage.url} alt={member.Name} className="w-full h-full object-cover" />
+                        <img src={proxyUrl(member.ProfileImage.url)} alt={member.Name} className="w-full h-full object-cover" />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
                           <User className="w-10 h-10 text-uvtab-blue/30" />
@@ -107,7 +107,7 @@ export default function BoardMembersPage() {
                   <div className="inline-block bg-gradient-to-br from-uvtab-blue to-uvtab-blue-light text-white rounded-2xl p-8">
                     <div className="w-28 h-28 mx-auto mb-4 rounded-full overflow-hidden border-4 border-uvtab-gold/50 bg-white/10">
                       {es.ProfileImage?.url ? (
-                        <img src={es.ProfileImage.url} alt={es.Name} className="w-full h-full object-cover" />
+                        <img src={proxyUrl(es.ProfileImage.url)} alt={es.Name} className="w-full h-full object-cover" />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
                           <User className="w-12 h-12 text-white/50" />

@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import PageHero from "@/components/PageHero";
-import { getGallery, getMediaUrl } from "@/lib/strapi";
+import { getGallery, getMediaUrl, proxyUrl } from "@/lib/strapi";
 
 export default function GalleryPage() {
   const [albums, setAlbums] = useState<any[]>([]);
@@ -62,7 +62,7 @@ export default function GalleryPage() {
                   onClick={() => setLightbox({ images: allImages, index: i })}
                   className="aspect-square rounded-xl overflow-hidden cursor-pointer group relative"
                 >
-                  <img src={img.url} alt={img.alternativeText || img.albumTitle} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  <img src={proxyUrl(img.url)} alt={img.alternativeText || img.albumTitle} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-end p-3">
                     <span className="text-white text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity">{img.albumTitle}</span>
                   </div>
@@ -93,7 +93,7 @@ export default function GalleryPage() {
               <ChevronLeft className="w-8 h-8" />
             </button>
             <img
-              src={lightbox.images[lightbox.index].url}
+              src={proxyUrl(lightbox.images[lightbox.index].url)}
               alt=""
               className="max-w-full max-h-[85vh] object-contain rounded-xl"
               onClick={(e) => e.stopPropagation()}

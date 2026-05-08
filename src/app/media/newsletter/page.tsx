@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Mail, Download, Calendar, BookOpen, Send, CheckCircle, ZoomIn } from "lucide-react";
 import PageHero from "@/components/PageHero";
-import { getNewsletters, getMediaUrl, subscribeNewsletter } from "@/lib/strapi";
+import { getNewsletters, getMediaUrl, subscribeNewsletter, proxyUrl } from "@/lib/strapi";
 
 function getCoverUrl(nl: any): string {
   const img = nl.CoverImage || nl.coverImage;
   if (!img) return "";
-  return img.formats?.medium?.url || img.formats?.small?.url || img.url || "";
+  return proxyUrl(img.formats?.medium?.url || img.formats?.small?.url || img.url || "");
 }
 
 export default function NewsletterPage() {

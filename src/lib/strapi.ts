@@ -517,14 +517,10 @@ const STRAPI_MEDIA_HOSTS = [
 
 export function proxyUrl(url: string | null): string {
   if (!url) return "";
-  try {
-    const parsed = new URL(url);
-    if (STRAPI_MEDIA_HOSTS.includes(parsed.hostname)) {
-      // Clean path: /docs/filename.pdf (proxied by Next.js rewrites)
-      const path = parsed.pathname.startsWith("/") ? parsed.pathname.slice(1) : parsed.pathname;
-      return `/docs/${path}`;
-    }
-  } catch {}
+  // Handle relative URLs returned by self-hosted Strapi (e.g. "/uploads/foo.pdf")
+  if (url.startsWith("/")) {
+    return `https://cms.uvtab.go.ug${url}`;
+  }
   return url;
 }
 

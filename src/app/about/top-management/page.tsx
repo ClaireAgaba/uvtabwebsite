@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { User } from "lucide-react";
 import PageHero from "@/components/PageHero";
-import { getTopManagement } from "@/lib/strapi";
+import { getTopManagement, proxyUrl } from "@/lib/strapi";
 
 export default function TopManagementPage() {
   const [managers, setManagers] = useState<any[]>([]);
@@ -77,7 +77,7 @@ export default function TopManagementPage() {
                             <div className="p-6 text-center">
                               <div className="w-40 h-40 mx-auto mb-4 rounded-full overflow-hidden bg-uvtab-blue/5 border-2 border-gray-100 group-hover:border-uvtab-gold transition-colors">
                                 {manager.ProfileImage?.url ? (
-                                  <img src={manager.ProfileImage.url} alt={manager.Name} className="w-full h-full object-cover" />
+                                  <img src={proxyUrl(manager.ProfileImage.url)} alt={manager.Name} className="w-full h-full object-cover" />
                                 ) : (
                                   <div className="w-full h-full flex items-center justify-center">
                                     <User className="w-12 h-12 text-uvtab-blue/30" />

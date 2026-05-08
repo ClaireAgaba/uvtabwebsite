@@ -5,23 +5,23 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Lightbulb, ArrowRight, Calendar, ZoomIn, Sparkles } from "lucide-react";
 import PageHero from "@/components/PageHero";
-import { getInnovations, extractText } from "@/lib/strapi";
+import { getInnovations, extractText, proxyUrl } from "@/lib/strapi";
 
 function getImageUrl(item: any): string {
   const media = item.Media;
   if (!media) return "";
   if (Array.isArray(media) && media.length > 0) {
     const m = media[0];
-    return m.formats?.medium?.url || m.formats?.small?.url || m.url || "";
+    return proxyUrl(m.formats?.medium?.url || m.formats?.small?.url || m.url || "");
   }
-  return media.formats?.medium?.url || media.formats?.small?.url || media.url || "";
+  return proxyUrl(media.formats?.medium?.url || media.formats?.small?.url || media.url || "");
 }
 
 function getFullImageUrl(item: any): string {
   const media = item.Media;
   if (!media) return "";
-  if (Array.isArray(media) && media.length > 0) return media[0].url || "";
-  return media.url || "";
+  if (Array.isArray(media) && media.length > 0) return proxyUrl(media[0].url || "");
+  return proxyUrl(media.url || "");
 }
 
 export default function InnovationPage() {

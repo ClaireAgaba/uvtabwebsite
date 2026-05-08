@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CalendarDays, MapPin, Clock, ZoomIn, CalendarCheck, CalendarClock, History } from "lucide-react";
 import PageHero from "@/components/PageHero";
-import { getEvents, getMediaUrl, extractText } from "@/lib/strapi";
+import { getEvents, getMediaUrl, extractText, proxyUrl } from "@/lib/strapi";
 
 type Tab = "ongoing" | "upcoming" | "past";
 
@@ -13,16 +13,16 @@ function getImageUrl(event: any): string {
   if (!media) return "";
   if (Array.isArray(media) && media.length > 0) {
     const m = media[0];
-    return m.formats?.medium?.url || m.formats?.small?.url || m.url || "";
+    return proxyUrl(m.formats?.medium?.url || m.formats?.small?.url || m.url || "");
   }
-  return media.formats?.medium?.url || media.formats?.small?.url || media.url || "";
+  return proxyUrl(media.formats?.medium?.url || media.formats?.small?.url || media.url || "");
 }
 
 function getFullImageUrl(event: any): string {
   const media = event.Media;
   if (!media) return "";
-  if (Array.isArray(media) && media.length > 0) return media[0].url || "";
-  return media.url || "";
+  if (Array.isArray(media) && media.length > 0) return proxyUrl(media[0].url || "");
+  return proxyUrl(media.url || "");
 }
 
 function classifyEvent(event: any): Tab {
