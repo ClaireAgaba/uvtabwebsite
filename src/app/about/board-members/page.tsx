@@ -58,9 +58,9 @@ export default function BoardMembersPage() {
                     Chairperson
                   </div>
                   <div className="group cursor-default">
-                    <div className="relative w-40 h-40 mx-auto mb-5">
+                    <div className="relative w-48 h-48 mx-auto mb-5">
                       <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-uvtab-gold via-uvtab-gold-light to-uvtab-blue opacity-60 blur-sm group-hover:opacity-80 transition-opacity duration-500" />
-                      <div className="relative w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-xl">
+                      <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-white shadow-xl">
                         {chair.ProfileImage?.url ? (
                           <img
                             src={proxyUrl(chair.ProfileImage.url)}
@@ -101,9 +101,9 @@ export default function BoardMembersPage() {
                     transition={{ delay: i * 0.06, duration: 0.5 }}
                     className="text-center group cursor-default"
                   >
-                    <div className="relative w-28 h-28 mx-auto mb-4">
+                    <div className="relative w-36 h-36 mx-auto mb-4">
                       <div className="absolute -inset-0.5 rounded-full bg-gradient-to-br from-uvtab-blue/20 to-uvtab-gold/20 opacity-0 group-hover:opacity-100 blur-sm transition-opacity duration-500" />
-                      <div className="relative w-28 h-28 rounded-full overflow-hidden border-3 border-gray-200 group-hover:border-uvtab-gold/60 shadow-md group-hover:shadow-xl transition-all duration-500">
+                      <div className="relative w-36 h-36 rounded-full overflow-hidden border-3 border-gray-200 group-hover:border-uvtab-gold/60 shadow-md group-hover:shadow-xl transition-all duration-500">
                         {member.ProfileImage?.url ? (
                           <img
                             src={proxyUrl(member.ProfileImage.url)}
@@ -147,9 +147,9 @@ export default function BoardMembersPage() {
                     Executive Secretary
                   </div>
                   <div className="group cursor-default">
-                    <div className="relative w-36 h-36 mx-auto mb-5">
+                    <div className="relative w-44 h-44 mx-auto mb-5">
                       <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-uvtab-blue via-uvtab-blue-light to-uvtab-gold opacity-50 blur-sm group-hover:opacity-75 transition-opacity duration-500" />
-                      <div className="relative w-36 h-36 rounded-full overflow-hidden border-4 border-white shadow-xl">
+                      <div className="relative w-44 h-44 rounded-full overflow-hidden border-4 border-white shadow-xl">
                         {es.ProfileImage?.url ? (
                           <img
                             src={proxyUrl(es.ProfileImage.url)}
